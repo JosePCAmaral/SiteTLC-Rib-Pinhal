@@ -1,15 +1,30 @@
+import { useState } from 'react'
 import conteudo from '../conteudo.js'
-import { CabecalhoPagina, Depoimentos, GradeFotos, Titulo } from '../components/Blocos.jsx'
+import { CabecalhoPagina, Depoimentos, Titulo } from '../components/Blocos.jsx'
 import { CoroaEstrelas } from '../components/Icones.jsx'
+import Visualizador from '../components/Visualizador.jsx'
+import { arquivo } from '../utils.js'
 
 export default function Galeria() {
+  const [aberta, setAberta] = useState(null)
+  const fotos = conteudo.fotos
+
   return (
     <>
       <CabecalhoPagina titulo="Galeria" subtitulo="Momentos que guardamos no coração" />
       <section className="secao">
         <div className="container">
-          {conteudo.fotos.length > 0 ? (
-            <GradeFotos fotos={conteudo.fotos} />
+          {fotos.length > 0 ? (
+            <div className="mosaico">
+              {fotos.map((f, i) => (
+                <figure key={f.arquivo} className="mosaico-item">
+                  <button type="button" onClick={() => setAberta(i)} aria-label={`Ampliar: ${f.legenda}`}>
+                    <img src={arquivo(f.arquivo)} alt={f.legenda} loading="lazy" />
+                  </button>
+                  <figcaption>{f.legenda}</figcaption>
+                </figure>
+              ))}
+            </div>
           ) : (
             <div className="vazio vazio-destaque">
               <CoroaEstrelas className="vazio-estrelas" />
@@ -28,6 +43,8 @@ export default function Galeria() {
           </div>
         </section>
       )}
+
+      <Visualizador fotos={fotos} indice={aberta} aoMudar={setAberta} aoFechar={() => setAberta(null)} />
     </>
   )
 }

@@ -85,9 +85,16 @@ const conteudo = {
   ],
 
   // ---------------- Fotos ----------------
-  // As 6 primeiras aparecem na página inicial; todas aparecem na Galeria.
+  // Aparecem no carrossel da página inicial e na Galeria, nesta ordem.
+  // Coloque o arquivo em public/fotos/ (nome sem espaço nem acento).
   fotos: [
-    // { arquivo: "fotos/noite-mariana-01.jpg", legenda: "Noite Mariana 2026" },
+    { arquivo: "fotos/implantacao-tlc-paroquia.jpg", legenda: "Dia da apresentação e implantação do TLC na Paróquia Santuário do Divino Espírito Santo" },
+    { arquivo: "fotos/encontro-depois-da-missa.jpg", legenda: "Encontro depois da missa" },
+    { arquivo: "fotos/planejamento-primeiro-tlc-diocese.jpg", legenda: "Encontro de planejamento do primeiro TLC da Diocese de Jacarezinho" },
+    { arquivo: "fotos/entrega-primeiro-tlc-diocesano.jpg", legenda: "Entrega do primeiro TLC diocesano" },
+    { arquivo: "fotos/participantes-primeiro-tlc-diocese.jpg", legenda: "Participantes do primeiro TLC da Diocese de Jacarezinho" },
+    { arquivo: "fotos/pe-haroldo-rahm.jpg", legenda: "Pe. Haroldo Rahm, fundador do TLC" },
+    { arquivo: "fotos/aniversario-pe-haroldo-rahm.jpg", legenda: "Aniversário do Pe. Haroldo Rahm" },
   ],
 
   // ---------------- Depoimentos ----------------
@@ -97,9 +104,21 @@ const conteudo = {
 
   // ---------------- Instituições de apoio ----------------
   // logo: coloque a imagem em public/apoiadores/ (opcional)
+  // instagram: só o @, sem o símbolo  |  site: endereço completo, com https://
+  // Deixe "" para esconder o ícone.
   apoiadores: [
-    { nome: "Paróquia Santuário do Divino Espírito Santo", logo: "", link: "" },
-    { nome: "Diocese de Jacarezinho", logo: "", link: "" },
+    {
+      nome: "Paróquia Santuário do Divino Espírito Santo",
+      logo: "apoiadores/paroquia-divino-espirito-santo.svg",
+      instagram: "santdespiritosanto", 
+      site: "",
+    },
+    {
+      nome: "Diocese de Jacarezinho",
+      logo: "apoiadores/diocese-jacarezinho.webp",
+      instagram: "diocesedejacarezinho",
+      site: "https://diocesejacarezinho.org",
+    },
   ],
 
   // ---------------- Doações ----------------

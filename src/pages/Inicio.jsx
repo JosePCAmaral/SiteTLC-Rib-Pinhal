@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom'
 import conteudo from '../conteudo.js'
 import Contagem from '../components/Contagem.jsx'
-import { Apoiadores, Depoimentos, GradeFotos, Titulo } from '../components/Blocos.jsx'
+import { Apoiadores, Depoimentos, Titulo } from '../components/Blocos.jsx'
+import Carrossel from '../components/Carrossel.jsx'
 import { CoroaEstrelas, IconeCalendario, IconeInstagram, IconeLocal, IconePessoas, IconeRelogio, IconeSeta } from '../components/Icones.jsx'
 import { eventoJaPassou, formatarData, formatarHora, linkInscricaoEvento, linkInstagram, linkMapa } from '../utils.js'
 
@@ -55,8 +56,6 @@ function Destaque() {
 }
 
 export default function Inicio() {
-  const fotos = conteudo.fotos.slice(0, 6)
-
   return (
     <>
       <Destaque />
@@ -71,11 +70,11 @@ export default function Inicio() {
         </div>
       </section>
 
-      {fotos.length > 0 && (
+      {conteudo.fotos.length > 0 && (
         <section className="secao secao-clara">
           <div className="container">
             <Titulo sobre="Fotos">Nossos momentos</Titulo>
-            <GradeFotos fotos={fotos} />
+            <Carrossel fotos={conteudo.fotos} />
             <Link to="/galeria" className="link-seta">Ver galeria completa <IconeSeta /></Link>
           </div>
         </section>

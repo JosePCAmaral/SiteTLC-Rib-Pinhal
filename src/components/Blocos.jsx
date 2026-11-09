@@ -1,5 +1,6 @@
 import conteudo from '../conteudo.js'
 import { arquivo } from '../utils.js'
+import { IconeInstagram, IconeSite } from './Icones.jsx'
 
 export function CabecalhoPagina({ titulo, subtitulo }) {
   return (
@@ -21,19 +22,6 @@ export function Titulo({ sobre, children }) {
   )
 }
 
-export function GradeFotos({ fotos }) {
-  return (
-    <div className="grade-fotos">
-      {fotos.map((f, i) => (
-        <figure key={i} className="foto">
-          <img src={arquivo(f.arquivo)} alt={f.legenda || `Foto ${i + 1}`} loading="lazy" />
-          {f.legenda && <figcaption>{f.legenda}</figcaption>}
-        </figure>
-      ))}
-    </div>
-  )
-}
-
 export function Depoimentos() {
   return (
     <div className="depoimentos">
@@ -50,18 +38,26 @@ export function Depoimentos() {
 export function Apoiadores() {
   return (
     <ul className="apoiadores">
-      {conteudo.apoiadores.map((a, i) => {
-        const corpo = a.logo ? (
-          <img src={arquivo(a.logo)} alt={a.nome} loading="lazy" />
-        ) : (
-          <span>{a.nome}</span>
-        )
-        return (
-          <li key={i} className="apoiador">
-            {a.link ? <a href={a.link} target="_blank" rel="noreferrer">{corpo}</a> : corpo}
-          </li>
-        )
-      })}
+      {conteudo.apoiadores.map((a, i) => (
+        <li key={i} className="apoiador">
+          {a.logo && <img src={arquivo(a.logo)} alt="" loading="lazy" />}
+          <span className="apoiador-nome">{a.nome}</span>
+          {(a.instagram || a.site) && (
+            <div className="apoiador-redes">
+              {a.instagram && (
+                <a href={`https://instagram.com/${a.instagram.replace(/^@/, '')}`} target="_blank" rel="noreferrer" aria-label={`Instagram de ${a.nome}`} title="Instagram">
+                  <IconeInstagram />
+                </a>
+              )}
+              {a.site && (
+                <a href={a.site} target="_blank" rel="noreferrer" aria-label={`Site de ${a.nome}`} title="Site">
+                  <IconeSite />
+                </a>
+              )}
+            </div>
+          )}
+        </li>
+      ))}
     </ul>
   )
 }

@@ -6,6 +6,9 @@ export const IconeInstagram = (p) => (
 export const IconeWhatsapp = (p) => (
   <svg {...base} {...p}><path d="M3 21l1.7-5A8.5 8.5 0 1 1 8 19.4L3 21z" /><path d="M9 9.5c.5 2.5 2.5 4.5 5 5l1-1.5-2-1-1 .8a5 5 0 0 1-2-2l.8-1-1-2L9 9.5z" /></svg>
 )
+export const IconeSite = (p) => (
+  <svg {...base} {...p}><circle cx="12" cy="12" r="9" /><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18" /></svg>
+)
 export const IconeLocal = (p) => (
   <svg {...base} {...p}><path d="M12 21s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12z" /><circle cx="12" cy="9" r="2.5" /></svg>
 )
