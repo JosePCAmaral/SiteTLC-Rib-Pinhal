@@ -11,14 +11,14 @@ Você **não precisa saber programar**. Quase tudo que muda no site fica em um �
 3. Clique no ícone de **lápis ✏️** (Edit) no canto direito
 4. Altere o texto que quiser, sempre **dentro das aspas**
 5. Clique em **Commit changes** (botão verde) e confirme
-6. Em uns 2 minutos o site atualiza sozinho
+6. Em uns 2 minutos o site atualiza sozinho (Cloudflare Pages)
 
 ## Regras de ouro
 
 - Texto fica sempre entre aspas: `"assim"`.
 - Cada item de uma lista termina com **vírgula**.
 - Para **esconder** algo, deixe vazio: `""` ou `[]`.
-- Se o site parar de atualizar depois de uma edição, quase sempre é uma aspa ou vírgula faltando. Na aba **Actions** do GitHub aparece um ❌ vermelho mostrando o erro.
+- Se o site parar de atualizar depois de uma edição, quase sempre é uma aspa ou vírgula faltando. No commit, no GitHub, aparece um ❌ vermelho; clique nele para ver o erro do Cloudflare.
 
 ## Tarefas comuns
 
@@ -68,4 +68,4 @@ npm run build    # gera a pasta dist/
 ```
 
 Stack: Vite + React + React Router. Cada página fica em `src/pages/`, e as rotas em `src/App.jsx`.
-O deploy é automático para o GitHub Pages a cada push na `main` (`.github/workflows/deploy.yml`).
+O deploy é automático no Cloudflare Pages a cada push na `main` (build: `npm run build`, saída: `dist`).
