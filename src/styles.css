@@ -408,7 +408,13 @@ svg { flex-shrink: 0; }
 .opcao:has(input:focus-visible) { outline: 3px solid var(--cobalto); outline-offset: 2px; }
 .armadilha { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
 .erro { margin: 0; padding: 12px 14px; border-radius: 10px; background: #fdecec; color: #9b1c1c; font-weight: 500; }
-.botao:disabled { opacity: 0.6; cursor: wait; }
+.botao:disabled,
+.botao:disabled:hover {
+  background: #c9cdd6; border-color: #c9cdd6; color: #ffffff;
+  cursor: not-allowed; transform: none;
+}
+.enviar { display: grid; gap: 10px; }
+.o-que-falta { margin: 0; font-size: 0.875rem; color: var(--tinta-suave); text-align: center; text-wrap: balance; }
 .botao-fantasma { background: transparent; color: var(--cobalto); border-color: transparent; }
 .botao-fantasma:hover { background: var(--cobalto-suave); border-color: transparent; }
 

@@ -29,6 +29,44 @@ function formatarCnpj(valor) {
     .replace(/(\d{4})(\d)/, '$1-$2')
 }
 
+// ------------------------------------------------------------ Validação no navegador
+// (o servidor valida tudo de novo; aqui é só para guiar quem está preenchendo)
+
+const numero = (v) => Number(String(v ?? '').replace(',', '.'))
+const emailOk = (e) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(e.trim())
+
+function cnpjValido(cnpj) {
+  const n = String(cnpj).replace(/\D/g, '')
+  if (n.length !== 14 || /^(\d)\1+$/.test(n)) return false
+  const digito = (base) => {
+    const pesos = base.length === 12 ? [5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2] : [6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2]
+    const resto = base.split('').reduce((s, d, i) => s + Number(d) * pesos[i], 0) % 11
+    return resto < 2 ? 0 : 11 - resto
+  }
+  const d1 = digito(n.slice(0, 12))
+  return n.endsWith(`${d1}${digito(n.slice(0, 12) + d1)}`)
+}
+
+// "a", "a e b", "a, b e c"
+const juntar = (itens) => (itens.length <= 1 ? itens.join('') : `${itens.slice(0, -1).join(', ')} e ${itens.at(-1)}`)
+
+// Botão que fica cinza até o formulário estar completo, com aviso do que falta
+function BotaoEnviar({ faltando, enviando, texto, textoEnviando }) {
+  const incompleto = faltando.length > 0
+  return (
+    <div className="enviar">
+      <button type="submit" className="botao botao-grande" disabled={incompleto || enviando} aria-describedby={incompleto ? 'o-que-falta' : undefined}>
+        {enviando ? textoEnviando : texto}
+      </button>
+      {incompleto && (
+        <p className="o-que-falta" id="o-que-falta" aria-live="polite">
+          Para continuar, falta: {juntar(faltando)}.
+        </p>
+      )}
+    </div>
+  )
+}
+
 // Campos comuns aos dois formulários
 function useEnvio() {
   const [estado, setEstado] = useState({ enviando: false, erro: '' })
@@ -128,8 +166,15 @@ function FormDoacao() {
   const { estado, setEstado, iniciadoEm } = useEnvio()
   const mudar = (campo) => (e) => setF((v) => ({ ...v, [campo]: e.target.type === 'checkbox' ? e.target.checked : e.target.value }))
 
+  const faltando = []
+  if (!(numero(f.valor) >= 1)) faltando.push('o valor (mínimo R$ 1,00)')
+  if (!f.anonimo && !f.nome.trim()) faltando.push('seu nome (ou marque doação anônima)')
+  if (f.email.trim() && !emailOk(f.email)) faltando.push('um e-mail válido')
+  if (!f.consentimento) faltando.push('marcar a autorização')
+
   async function aoEnviar(e) {
     e.preventDefault()
+    if (faltando.length) return
     setEstado({ enviando: true, erro: '' })
     try {
       const { id } = await enviar({ ...f, tipo: 'doacao', iniciado_em: iniciadoEm.current })
@@ -190,9 +235,7 @@ function FormDoacao() {
       <Armadilha valor={f.site_url} aoMudar={(v) => setF((s) => ({ ...s, site_url: v }))} />
 
       {estado.erro && <p className="erro" role="alert">{estado.erro}</p>}
-      <button type="submit" className="botao botao-grande" disabled={estado.enviando}>
-        {estado.enviando ? 'Registrando…' : 'Continuar para o Pix'}
-      </button>
+      <BotaoEnviar faltando={faltando} enviando={estado.enviando} texto="Continuar para o Pix" textoEnviando="Registrando…" />
     </form>
   )
 }
@@ -214,9 +257,18 @@ function FormApoio() {
   const mudar = (campo) => (e) => setF((v) => ({ ...v, [campo]: e.target.type === 'checkbox' ? e.target.checked : e.target.value }))
   const alternarTipo = (t) => setF((v) => ({ ...v, tipos_apoio: v.tipos_apoio.includes(t) ? v.tipos_apoio.filter((x) => x !== t) : [...v.tipos_apoio, t] }))
 
+  const faltando = []
+  if (!f.razao_social.trim()) faltando.push('o nome da empresa')
+  if (!cnpjValido(f.cnpj)) faltando.push(f.cnpj.replace(/\D/g, '').length === 14 ? 'um CNPJ válido (confira os números)' : 'o CNPJ')
+  if (!f.nome.trim()) faltando.push('o nome do responsável')
+  if (!f.email.trim() && !f.telefone.trim()) faltando.push('um e-mail ou telefone')
+  else if (f.email.trim() && !emailOk(f.email)) faltando.push('um e-mail válido')
+  if (f.tipos_apoio.length === 0) faltando.push('o tipo de apoio')
+  if (!f.consentimento) faltando.push('marcar a autorização')
+
   async function aoEnviar(e) {
     e.preventDefault()
-    if (f.tipos_apoio.length === 0) return setEstado({ enviando: false, erro: 'Escolha pelo menos um tipo de apoio.' })
+    if (faltando.length) return
     setEstado({ enviando: true, erro: '' })
     try {
       const { id } = await enviar({ ...f, tipo: 'apoio', iniciado_em: iniciadoEm.current })
@@ -296,9 +348,7 @@ function FormApoio() {
       <Armadilha valor={f.site_url} aoMudar={(v) => setF((s) => ({ ...s, site_url: v }))} />
 
       {estado.erro && <p className="erro" role="alert">{estado.erro}</p>}
-      <button type="submit" className="botao botao-grande" disabled={estado.enviando}>
-        {estado.enviando ? 'Enviando…' : 'Enviar proposta de apoio'}
-      </button>
+      <BotaoEnviar faltando={faltando} enviando={estado.enviando} texto="Enviar proposta de apoio" textoEnviando="Enviando…" />
     </form>
   )
 }
