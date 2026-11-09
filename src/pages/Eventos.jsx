@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import conteudo from '../conteudo.js'
 import { CabecalhoPagina, Titulo } from '../components/Blocos.jsx'
 import { IconeLocal, IconeRelogio } from '../components/Icones.jsx'
@@ -23,7 +24,10 @@ function CartaoEvento({ ev, futuro }) {
           )}
         </p>
         {ev.descricao && <p>{ev.descricao}</p>}
-        {futuro && (
+        {futuro && ev.pagina && (
+          <Link to={ev.pagina} className="botao botao-pequeno">Quero participar</Link>
+        )}
+        {futuro && !ev.pagina && (
           <a href={ev.linkInscricao || conteudo.linkInscricao} target="_blank" rel="noreferrer" className="botao botao-pequeno">
             Quero participar
           </a>

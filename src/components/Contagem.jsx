@@ -11,6 +11,45 @@ function calcular(alvo) {
   }
 }
 
+const plural = (n, um, varios) => `${n === 1 ? um : varios}`
+
+// Contagem regressiva escrita como frase: "Faltam 31 dias e 22 horas."
+export function ContagemFrase({ data }) {
+  const [t, setT] = useState(() => calcular(data))
+
+  useEffect(() => {
+    const id = setInterval(() => setT(calcular(data)), 30000)
+    return () => clearInterval(id)
+  }, [data])
+
+  if (t.acabou) return null
+
+  let partes
+  if (t.dias > 0) {
+    partes = [[t.dias, plural(t.dias, 'dia', 'dias')], [t.horas, plural(t.horas, 'hora', 'horas')]]
+  } else if (t.horas > 0) {
+    partes = [[t.horas, plural(t.horas, 'hora', 'horas')], [t.minutos, plural(t.minutos, 'minuto', 'minutos')]]
+  } else {
+    partes = [[t.minutos, plural(t.minutos, 'minuto', 'minutos')]]
+  }
+  const visiveis = partes.filter(([n], i) => i === 0 || n > 0)
+  const verbo = visiveis[0][0] === 1 ? 'Falta' : 'Faltam'
+
+  return (
+    <p className="contagem-frase">
+      {verbo}{' '}
+      {visiveis.map(([n, rotulo], i) => (
+        <span key={rotulo}>
+          {i > 0 && ' e '}
+          <strong>{n}</strong> {rotulo}
+        </span>
+      ))}
+      .
+    </p>
+  )
+}
+
+// Contagem regressiva em caixinhas (dias, horas, min, seg), usada no topo azul
 export default function Contagem({ data }) {
   const [t, setT] = useState(() => calcular(data))
 

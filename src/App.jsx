@@ -7,6 +7,7 @@ import Galeria from './pages/Galeria.jsx'
 import Doacoes from './pages/Doacoes.jsx'
 import Contato from './pages/Contato.jsx'
 import Privacidade from './pages/Privacidade.jsx'
+import NoiteMariana from './pages/NoiteMariana.jsx'
 import NaoEncontrada from './pages/NaoEncontrada.jsx'
 
 // Para adicionar uma página nova: crie o arquivo em src/pages/,
@@ -16,6 +17,7 @@ export default function App() {
     <Routes>
       <Route element={<Layout />}>
         <Route index element={<Inicio />} />
+        <Route path="noite-mariana" element={<NoiteMariana />} />
         <Route path="o-que-e-o-tlc" element={<OQueETLC />} />
         <Route path="eventos" element={<Eventos />} />
         <Route path="galeria" element={<Galeria />} />

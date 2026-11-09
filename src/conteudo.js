@@ -40,6 +40,9 @@ const conteudo = {
     cidade: "Ribeirão do Pinhal – PR",
     publico: "Aberto a toda a comunidade",
     linkInscricao: "", // vazio = usa o link de inscrição geral acima
+    // Página própria do evento no site. Os botões "Quero participar" levam para cá.
+    // Vazio = os botões vão direto para o formulário de inscrição.
+    pagina: "/noite-mariana",
   },
 
   // ---------------- Quem somos (página inicial) ----------------
@@ -81,8 +84,13 @@ const conteudo = {
       data: "2026-12-11T19:30:00-03:00",
       local: "Salão Paroquial do Santuário Divino Espírito Santo",
       descricao: "Nosso primeiro encontro, aberto a toda a comunidade.",
+      pagina: "/noite-mariana",
     },
   ],
+
+  // ---------------- Foto do topo da página inicial ----------------
+  // Aparece emoldurada por azulejos ao lado do próximo evento.
+  fotoDestaque: { arquivo: "fotos/implantacao-tlc-paroquia.jpg", legenda: "Equipe do TLC Ribeirão do Pinhal no dia da implantação do movimento na paróquia" },
 
   // ---------------- Fotos ----------------
   // Aparecem no carrossel da página inicial e na Galeria, nesta ordem.

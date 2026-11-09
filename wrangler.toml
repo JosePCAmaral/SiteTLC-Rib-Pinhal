@@ -1,6 +1,6 @@
 # Configuração do Cloudflare Worker (site + backend).
 # "name" precisa ser EXATAMENTE o nome do Worker no painel do Cloudflare.
-name = "tlc-ribeirao-do-pinhal"  # CONFIRME: igual ao nome do Worker no painel
+name = "tlc-ribeirao-do-pinhal"
 main = "worker/index.js"
 compatibility_date = "2026-10-01"
 
@@ -31,6 +31,21 @@ binding = "DB"
 database_name = "tlc-registros"
 database_id = "c1ee4464-e338-4966-9dbe-31eb018dfbcf"
 migrations_dir = "migrations"
+
+# ---------------------------------------------------------------------
+# Prévias (branches de teste, ex.: novas_atualizacoes)
+# Usam um banco SEPARADO, para doações de teste não irem para o extrato real.
+# Sem RESEND_API_KEY na aba "Base de Prévias", os e-mails só aparecem nos logs.
+[previews.vars]
+EMAIL_DESTINO = "tlcribeiraodopinhal@gmail.com"
+EMAIL_REMETENTE = "TLC Ribeirão do Pinhal <onboarding@resend.dev>"
+
+[[previews.d1_databases]]
+binding = "DB"
+database_name = "tlc-registros-preview"
+database_id = "cf584b1c-7279-4370-9f18-601da5f985eb"
+migrations_dir = "migrations"
+# ---------------------------------------------------------------------
 
 # Logs no painel do Cloudflare (Worker > Logs), úteis para investigar erros
 [observability]

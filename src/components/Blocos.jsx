@@ -1,22 +1,28 @@
 import conteudo from '../conteudo.js'
 import { arquivo } from '../utils.js'
 import { IconeInstagram, IconeSite } from './Icones.jsx'
+import { BarraAzulejo } from './Azulejo.jsx'
 
 export function CabecalhoPagina({ titulo, subtitulo }) {
   return (
-    <section className="cabecalho-pagina">
-      <div className="container">
-        <h1>{titulo}</h1>
-        {subtitulo && <p>{subtitulo}</p>}
-      </div>
-    </section>
+    <>
+      <section className="cabecalho-pagina">
+        <div className="container">
+          <h1>{titulo}</h1>
+          {subtitulo && <p>{subtitulo}</p>}
+        </div>
+      </section>
+      <BarraAzulejo tamanho={28} />
+    </>
   )
 }
 
+// "sobre" é aceito por compatibilidade, mas não é mais exibido:
+// o título da seção já diz do que ela trata.
+// eslint-disable-next-line no-unused-vars
 export function Titulo({ sobre, children }) {
   return (
     <div className="titulo-secao">
-      {sobre && <span className="sobretitulo">{sobre}</span>}
       <h2>{children}</h2>
     </div>
   )
