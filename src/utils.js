@@ -48,3 +48,11 @@ export function linkMapa(local, cidade) {
 export function linkInscricaoEvento() {
   return conteudo.proximoEvento.linkInscricao || conteudo.linkInscricao
 }
+
+// Para onde os botões "Quero participar" levam: a página do próximo evento
+// (se existir e o evento ainda não passou) ou o formulário de inscrição.
+export function destinoParticipar() {
+  const ev = conteudo.proximoEvento
+  if (ev.pagina && !eventoJaPassou(ev.data)) return { interno: true, para: ev.pagina }
+  return { interno: false, para: conteudo.linkInscricao }
+}

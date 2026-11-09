@@ -28,6 +28,10 @@ A data segue o formato `"2026-12-11T19:30:00-03:00"` (ano-mês-dia, depois `T` e
 
 Lembre também de adicionar o evento à lista `eventos`, que é a agenda da página Eventos.
 
+O campo `pagina` (ex.: `"/noite-mariana"`) faz os botões "Quero participar" levarem para a página do evento, que também aparece no menu.
+Deixe `pagina: ""` para os botões irem direto ao formulário de inscrição. Depois que o evento passa, o item some do menu sozinho.
+A foto emoldurada por azulejos na página do evento é a `fotoDestaque`.
+
 ### Adicionar fotos
 1. No GitHub, abra `public/fotos/` → **Add file → Upload files** e envie as fotos.
    Use nomes simples, sem espaço nem acento: `noite-mariana-01.jpg`.

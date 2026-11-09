@@ -1,4 +1,5 @@
 import conteudo from '../conteudo.js'
+import BotaoParticipar from '../components/BotaoParticipar.jsx'
 import { CabecalhoPagina } from '../components/Blocos.jsx'
 import { IconeEmail, IconeInstagram, IconeLocal, IconeSeta, IconeWhatsapp } from '../components/Icones.jsx'
 import { linkInstagram, linkMapa, linkWhatsapp } from '../utils.js'
@@ -14,13 +15,13 @@ export default function Contato() {
       <section className="secao">
         <div className="container contato-grade">
           <div className="contato-lista">
-            <a href={conteudo.linkInscricao} target="_blank" rel="noreferrer" className="contato-item contato-principal">
+            <BotaoParticipar className="contato-item contato-principal">
               <IconeSeta />
               <div>
                 <strong>Quero participar</strong>
-                <span>Preencha o formulário de inscrição</span>
+                <span>{conteudo.proximoEvento.pagina ? `Veja os detalhes da ${conteudo.proximoEvento.nome} e faça sua inscrição` : 'Preencha o formulário de inscrição'}</span>
               </div>
-            </a>
+            </BotaoParticipar>
             <a href={linkInstagram()} target="_blank" rel="noreferrer" className="contato-item">
               <IconeInstagram />
               <div>
@@ -51,7 +52,8 @@ export default function Contato() {
               <div>
                 <strong>Onde estamos</strong>
                 <span>{conteudo.paroquia}</span>
-                <span>{conteudo.cidade} · {conteudo.diocese}</span>
+                <span>{conteudo.cidade}</span>
+                <span>{conteudo.diocese}</span>
               </div>
             </a>
           </div>

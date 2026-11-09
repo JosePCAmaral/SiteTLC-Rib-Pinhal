@@ -1,11 +1,16 @@
 import { useEffect, useState } from 'react'
 import { Link, NavLink, Outlet, useLocation } from 'react-router-dom'
 import conteudo from '../conteudo.js'
-import { arquivo, linkInstagram, linkWhatsapp } from '../utils.js'
+import { arquivo, eventoJaPassou, linkInstagram, linkWhatsapp } from '../utils.js'
+import BotaoParticipar from './BotaoParticipar.jsx'
 import { IconeInstagram, IconeWhatsapp } from './Icones.jsx'
+import { BarraAzulejo } from './Azulejo.jsx'
 
+const ev = conteudo.proximoEvento
 const menu = [
   { para: '/', texto: 'Início' },
+  // Página do próximo evento (some do menu depois que o evento passa)
+  ...(ev.pagina && !eventoJaPassou(ev.data) ? [{ para: ev.pagina, texto: ev.nome }] : []),
   { para: '/o-que-e-o-tlc', texto: 'O que é o TLC' },
   { para: '/eventos', texto: 'Eventos' },
   { para: '/galeria', texto: 'Galeria' },
@@ -55,9 +60,7 @@ export default function Layout() {
                 {item.texto}
               </NavLink>
             ))}
-            <a href={conteudo.linkInscricao} target="_blank" rel="noreferrer" className="botao botao-pequeno">
-              Quero participar
-            </a>
+            <BotaoParticipar className="botao botao-pequeno" onClick={() => setMenuAberto(false)} />
           </nav>
         </div>
       </header>
@@ -66,12 +69,14 @@ export default function Layout() {
         <Outlet />
       </main>
 
+      <BarraAzulejo tamanho={40} />
       <footer className="rodape">
         <div className="container rodape-grade">
           <div>
             <p className="rodape-nome">{conteudo.nome}</p>
             <p>{conteudo.paroquia}</p>
-            <p>{conteudo.diocese} · {conteudo.cidade}</p>
+            <p>{conteudo.diocese}</p>
+            <p>{conteudo.cidade}</p>
           </div>
           <div className="rodape-redes">
             <a href={linkInstagram()} target="_blank" rel="noreferrer">
