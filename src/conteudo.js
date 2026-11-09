@@ -28,6 +28,10 @@ const conteudo = {
   email: "",
   linkInscricao: "https://forms.gle/G9T4gEBjQtBDMsu79",
 
+  // ---------------- Estatísticas de visitas ----------------
+  // Token do Cloudflare Web Analytics (não é segredo). Vazio = desligado.
+  tokenWebAnalytics: "",
+
   // ---------------- Próximo evento (contagem regressiva) ----------------
   proximoEvento: {
     nome: "Noite Mariana",

@@ -25,6 +25,11 @@ export default function Privacidade() {
             irreversível do endereço de internet (IP) de quem envia. Não é possível descobrir o IP real a partir dela.
           </p>
 
+          <p>
+            Para saber quantas pessoas visitam o site e quais páginas são mais vistas, usamos o Cloudflare Web
+            Analytics, que gera estatísticas anônimas e não usa cookies nem identifica quem visita.
+          </p>
+
           <h2>Para que usamos</h2>
           <ul>
             <li>Registrar as contribuições e fazer a prestação de contas do movimento;</li>
