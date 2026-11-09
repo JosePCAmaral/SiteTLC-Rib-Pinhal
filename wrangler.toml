@@ -1,0 +1,42 @@
+# Configuração do Cloudflare Worker (site + backend).
+# "name" precisa ser EXATAMENTE o nome do Worker no painel do Cloudflare.
+name = "tlc-ribeirao-do-pinhal"  # CONFIRME: igual ao nome do Worker no painel
+main = "worker/index.js"
+compatibility_date = "2026-10-01"
+
+# Gera o site (pasta dist/) antes de publicar ou rodar localmente
+[build]
+command = "npm run build"
+
+# Arquivos do site. O Worker roda primeiro em toda requisição
+# para aplicar os cabeçalhos de segurança e atender a /api.
+[assets]
+directory = "./dist"
+binding = "ASSETS"
+not_found_handling = "single-page-application"
+run_worker_first = true
+
+[vars]
+# Quem recebe os avisos de doação/apoio
+EMAIL_DESTINO = "tlcribeiraodopinhal@gmail.com"
+# Remetente. "onboarding@resend.dev" funciona sem configurar domínio,
+# mas só entrega para o e-mail dono da conta Resend.
+# Depois de verificar o domínio no Resend, troque por:
+#   "TLC Ribeirão do Pinhal <site@tlcribeiraodopinhal.com.br>"
+EMAIL_REMETENTE = "TLC Ribeirão do Pinhal <onboarding@resend.dev>"
+
+# Banco de dados (extrato das doações e apoios)
+[[d1_databases]]
+binding = "DB"
+database_name = "tlc-registros"
+database_id = "c1ee4464-e338-4966-9dbe-31eb018dfbcf"
+migrations_dir = "migrations"
+
+# Logs no painel do Cloudflare (Worker > Logs), úteis para investigar erros
+[observability]
+enabled = true
+
+# Segredos (NÃO ficam neste arquivo) — veja .env.example:
+#   RESEND_API_KEY  -> chave da API do Resend
+#   HASH_SALT       -> texto aleatório para embaralhar IPs no controle de envios
+# Local: arquivo .env  |  Produção: Worker > Settings > Variables and Secrets (tipo Secret)

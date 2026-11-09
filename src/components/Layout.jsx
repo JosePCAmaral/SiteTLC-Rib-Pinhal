@@ -83,7 +83,10 @@ export default function Layout() {
               </a>
             )}
           </div>
-          <p className="rodape-frase">{conteudo.fraseDoMovimento}</p>
+          <div>
+            <p className="rodape-frase">{conteudo.fraseDoMovimento}</p>
+            <Link to="/privacidade" className="rodape-link">Política de Privacidade</Link>
+          </div>
         </div>
       </footer>
     </>

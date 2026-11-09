@@ -125,11 +125,15 @@ const conteudo = {
   doacoes: {
     texto:
       "O TLC é feito por voluntários. Cada doação ajuda a realizar encontros, comprar materiais e acolher jovens que não teriam condição de participar.",
+    // Use uma CHAVE ALEATÓRIA (crie no app do banco). Nunca coloque CPF aqui.
     pix: {
-      chave: "", // vazio mostra "em breve"
-      tipo: "", // ex: "CNPJ", "E-mail", "Celular"
-      favorecido: "",
+      chave: "a79163a5-8658-4d39-8091-17f585d97cac", // vazio: o formulário registra a doação e avisa que a chave sai em breve
+      tipo: "Chave aleatória",
+      favorecido: "José Pedro Cunha do Amaral", // nome que aparece na confirmação do Pix
+      cargo: "tesoureiro do TLC Ribeirão do Pinhal",
+      cidade: "Ribeirão do Pinhal",
     },
+    valoresSugeridos: [20, 50, 100, 200],
     outrasFormas: [
       { titulo: "Alimentos", texto: "Doações de alimentos para os lanches e refeições dos encontros." },
       { titulo: "Materiais", texto: "Papelaria, decoração e itens para as atividades." },

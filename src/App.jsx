@@ -6,6 +6,7 @@ import Eventos from './pages/Eventos.jsx'
 import Galeria from './pages/Galeria.jsx'
 import Doacoes from './pages/Doacoes.jsx'
 import Contato from './pages/Contato.jsx'
+import Privacidade from './pages/Privacidade.jsx'
 import NaoEncontrada from './pages/NaoEncontrada.jsx'
 
 // Para adicionar uma página nova: crie o arquivo em src/pages/,
@@ -20,6 +21,7 @@ export default function App() {
         <Route path="galeria" element={<Galeria />} />
         <Route path="doacoes" element={<Doacoes />} />
         <Route path="contato" element={<Contato />} />
+        <Route path="privacidade" element={<Privacidade />} />
         <Route path="*" element={<NaoEncontrada />} />
       </Route>
     </Routes>

@@ -11,7 +11,7 @@ Você **não precisa saber programar**. Quase tudo que muda no site fica em um �
 3. Clique no ícone de **lápis ✏️** (Edit) no canto direito
 4. Altere o texto que quiser, sempre **dentro das aspas**
 5. Clique em **Commit changes** (botão verde) e confirme
-6. Em uns 2 minutos o site atualiza sozinho (Cloudflare Pages)
+6. Em uns 2 minutos o site atualiza sozinho (Cloudflare Workers)
 
 ## Regras de ouro
 
@@ -51,7 +51,24 @@ Envie o logo para `public/apoiadores/` (opcional) e, em `apoiadores`:
 ```
 
 ### Colocar a chave Pix
-Em `doacoes.pix`, preencha `chave`, `tipo` e `favorecido`. O botão "Copiar chave Pix" aparece automaticamente.
+Em `doacoes.pix`, preencha `chave` com uma **chave aleatória** (crie no app do banco). **Nunca use CPF**: ele ficaria público no site.
+Depois que alguém registra uma doação, o site mostra o QR Code e o "Pix Copia e Cola" com o valor já preenchido.
+Se trocar de conta, por exemplo para a conta própria do TLC, atualize `chave`, `favorecido` e `cargo`.
+
+### Valores sugeridos de doação
+Em `doacoes.valoresSugeridos`, por exemplo `[20, 50, 100, 200]`.
+
+### Onde ver as doações e os apoios (extrato)
+- Cada doação ou apoio gera um **e-mail** para `tlcribeiraodopinhal@gmail.com`.
+- Tudo também fica salvo no banco de dados do Cloudflare. Para ver, entre no painel do Cloudflare → **Storage & Databases → D1 → tlc-registros → Console** e rode:
+  ```sql
+  SELECT * FROM registros ORDER BY id DESC;
+  ```
+- Para marcar uma doação como conferida no banco:
+  ```sql
+  UPDATE registros SET status = 'confirmado' WHERE id = 12;
+  ```
+- ⚠️ O site registra a **intenção** de doar. Confira sempre no extrato do banco se o Pix entrou. O identificador `TLC` + número do registro pode aparecer no extrato.
 
 ### Perguntas com "Tudo está previsto!"
 Em `perguntas`, deixe a `resposta` vazia (`""`) e o site mostra **Tudo está previsto! 😉**
@@ -67,5 +84,9 @@ npm run dev      # abre em http://localhost:5173
 npm run build    # gera a pasta dist/
 ```
 
+Backend (doações): Cloudflare Worker (`worker/`: `index.js` roteia, `doacao.js` é a API, `seguranca.js` os cabeçalhos) + banco D1 (`migrations/`) + e-mail via Resend.
+Para testar formulários localmente: copie `.env.example` para `.env` e preencha, rode `npm run db:local` (uma vez) e depois `npm run dev:completo` (abre em http://localhost:8788).
+Segurança e segredos: veja [SEGURANCA.md](SEGURANCA.md).
+
 Stack: Vite + React + React Router. Cada página fica em `src/pages/`, e as rotas em `src/App.jsx`.
-O deploy é automático no Cloudflare Pages a cada push na `main` (build: `npm run build`, saída: `dist`).
+O deploy é automático no Cloudflare Workers a cada push na `main` (`npx wrangler deploy`, que roda o `npm run build` sozinho; configuração em `wrangler.toml`).
