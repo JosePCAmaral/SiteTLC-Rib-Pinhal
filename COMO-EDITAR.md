@@ -31,6 +31,13 @@ Lembre também de adicionar o evento à lista `eventos`, que é a agenda da pág
 O campo `pagina` (ex.: `"/noite-mariana"`) faz os botões "Quero participar" levarem para a página do evento, que também aparece no menu.
 Deixe `pagina: ""` para os botões irem direto ao formulário de inscrição. Depois que o evento passa, o item some do menu sozinho.
 A foto emoldurada por azulejos na página do evento é a `fotoDestaque`.
+`duracaoHoras` é quanto tempo o evento dura; é usado no botão "Adicionar à agenda".
+
+### Imagem que aparece ao compartilhar o link (WhatsApp, Instagram)
+É o arquivo `public/compartilhar.png`. Para mudar os textos dela:
+1. Edite `ferramentas/imagem-compartilhamento.html` (os textos estão no meio do arquivo).
+2. No terminal, rode `npm run imagem` (precisa do Google Chrome instalado).
+3. Em `index.html`, troque o número em `compartilhar.png?v=1` (ex.: `?v=2`). Sem isso o WhatsApp continua mostrando a imagem antiga.
 
 ### Adicionar fotos
 1. No GitHub, abra `public/fotos/` → **Add file → Upload files** e envie as fotos.
@@ -68,6 +75,18 @@ Em `doacoes.valoresSugeridos`, por exemplo `[20, 50, 100, 200]`.
   ```sql
   SELECT * FROM registros ORDER BY id DESC;
   ```
+- Consultas úteis no mesmo Console:
+  ```sql
+  SELECT id, criado_em, nome, valor_centavos / 100.0 AS valor, status FROM registros WHERE tipo = 'doacao' ORDER BY id DESC;
+  ```
+  ```sql
+  SELECT id, criado_em, razao_social, cnpj, tipos_apoio, email, telefone FROM registros WHERE tipo = 'apoio' ORDER BY id DESC;
+  ```
+  ```sql
+  SELECT status, COUNT(*) AS quantidade, SUM(valor_centavos) / 100.0 AS total FROM registros WHERE tipo = 'doacao' GROUP BY status;
+  ```
+  Os horários (`criado_em`) estão no fuso UTC: diminua 3 horas para o horário de Brasília.
+- Testes feitos na **prévia** ficam em outro banco, o `tlc-registros-preview`.
 - Para marcar uma doação como conferida no banco:
   ```sql
   UPDATE registros SET status = 'confirmado' WHERE id = 12;

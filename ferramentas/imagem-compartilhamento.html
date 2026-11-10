@@ -1,0 +1,55 @@
+<!doctype html>
+<!--
+  Imagem que aparece quando o link do site é compartilhado (WhatsApp, Instagram, Facebook).
+  Para gerar de novo depois de mudar os textos, rode:  npm run imagem
+  Resultado: public/compartilhar.png (1200 × 630)
+-->
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=block" rel="stylesheet">
+<style>
+  html, body { margin: 0; width: 1200px; height: 630px; overflow: hidden; }
+  body { display: grid; grid-template-columns: 1fr 330px; background: #0047ab; color: #fff;
+         font-family: 'Archivo', sans-serif; }
+  .texto { padding: 56px 0 52px 72px; display: flex; flex-direction: column; height: 630px; box-sizing: border-box; }
+  .quem { font-size: 26px; font-weight: 600; opacity: .85; margin: 0; }
+  h1 { font-size: 118px; line-height: .9; font-weight: 900; font-stretch: 70%; margin: 22px 0 0;
+       letter-spacing: -1px; }
+  .quando { font-size: 44px; font-weight: 800; font-stretch: 85%; margin: 28px 0 0; }
+  .onde { font-size: 26px; line-height: 1.3; margin: 12px 0 0; opacity: .92; }
+  .rodape { margin-top: auto; font-size: 24px; font-weight: 700; display: flex; gap: 28px; }
+  .rodape span:last-child { opacity: .8; font-weight: 500; }
+  svg { width: 330px; height: 630px; display: block; color: #0047ab; }
+</style>
+</head>
+<body>
+  <div class="texto">
+    <p class="quem">TLC Ribeirão do Pinhal</p>
+    <h1>Noite<br>Mariana</h1>
+    <p class="quando">11 de dezembro, às 19h30</p>
+    <p class="onde">Salão Paroquial do Santuário Divino Espírito Santo<br>Ribeirão do Pinhal – PR</p>
+    <p class="rodape"><span>tlcribeiraodopinhal.com.br</span><span>Aberto a toda a comunidade</span></p>
+  </div>
+  <svg id="az" aria-hidden="true"></svg>
+<script>
+  // Mesmo desenho do azulejo do site (src/components/Azulejo.jsx)
+  const estrela = Array.from({ length: 16 }, (_, i) => {
+    const r = i % 2 === 0 ? 19 : 8.5, a = (i / 16) * Math.PI * 2 - Math.PI / 2
+    return `${(40 + Math.cos(a) * r).toFixed(2)},${(40 + Math.sin(a) * r).toFixed(2)}`
+  }).join(' ')
+  const E = 'fill="#fff"', C = 'fill="currentColor"'
+  let peca = `<rect width="80" height="80" ${E}/>`
+  for (const [x, y] of [[0,0],[80,0],[0,80],[80,80]])
+    peca += `<circle cx="${x}" cy="${y}" r="17" ${C}/><circle cx="${x}" cy="${y}" r="11" ${E}/><circle cx="${x}" cy="${y}" r="5.5" ${C}/>`
+  for (const [x, y] of [[40,0],[40,80],[0,40],[80,40]]) peca += `<circle cx="${x}" cy="${y}" r="4" ${C}/>`
+  peca += `<ellipse cx="40" cy="12" rx="3.2" ry="6" ${C}/><ellipse cx="40" cy="68" rx="3.2" ry="6" ${C}/>
+    <ellipse cx="12" cy="40" rx="6" ry="3.2" ${C}/><ellipse cx="68" cy="40" rx="6" ry="3.2" ${C}/>
+    <circle cx="40" cy="40" r="25" fill="none" stroke="currentColor" stroke-width="1.6"/>
+    <polygon points="${estrela}" ${C}/><circle cx="40" cy="40" r="5" ${E}/><circle cx="40" cy="40" r="2" ${C}/>`
+  document.getElementById('az').innerHTML =
+    `<defs><pattern id="p" width="110" height="110" viewBox="0 0 80 80" patternUnits="userSpaceOnUse" x="0" y="-25">${peca}</pattern></defs>
+     <rect width="100%" height="100%" fill="url(#p)"/>`
+</script>
+</body>
+</html>
