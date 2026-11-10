@@ -18,6 +18,7 @@ e o que a equipe precisa manter.
 | Textos dos usuários escapados nos e-mails (sem HTML malicioso) | `worker/doacao.js` |
 | Não coletamos CPF nem dados bancários; Pix com chave aleatória | `src/conteudo.js` |
 | Consentimento obrigatório + Política de Privacidade (LGPD) | `/privacidade` |
+| Estatísticas de visitas anônimas, sem cookies (Cloudflare Web Analytics), só no domínio oficial | `src/estatisticas.js` |
 
 ## Segredos
 

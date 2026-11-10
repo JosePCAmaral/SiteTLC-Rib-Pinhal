@@ -6,12 +6,12 @@
 
 const CSP = [
   "default-src 'self'",
-  "script-src 'self'",
+  "script-src 'self' https://static.cloudflareinsights.com",
   "style-src 'self' https://fonts.googleapis.com",
   'font-src https://fonts.gstatic.com',
   "img-src 'self' data:",
   'frame-src https://maps.google.com https://www.google.com',
-  "connect-src 'self'",
+  "connect-src 'self' https://cloudflareinsights.com",
   "base-uri 'self'",
   "form-action 'self'",
   "frame-ancestors 'none'",
