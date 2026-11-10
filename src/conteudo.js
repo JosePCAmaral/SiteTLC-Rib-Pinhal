@@ -40,6 +40,7 @@ const conteudo = {
       "Nosso primeiro encontro! Uma noite de oração, louvor e partilha aos pés de Nossa Senhora. Traga sua família, seus amigos e venha conhecer o TLC Ribeirão do Pinhal.",
     // Formato: ANO-MÊS-DIATHORA:MINUTO:00-03:00  (o -03:00 é o horário de Brasília)
     data: "2026-12-11T19:30:00-03:00",
+    duracaoHoras: 2, // usado no botão "Adicionar à agenda"
     local: "Salão Paroquial do Santuário Divino Espírito Santo",
     cidade: "Ribeirão do Pinhal – PR",
     publico: "Aberto a toda a comunidade",
@@ -86,6 +87,7 @@ const conteudo = {
     {
       nome: "Noite Mariana",
       data: "2026-12-11T19:30:00-03:00",
+    duracaoHoras: 2, // usado no botão "Adicionar à agenda"
       local: "Salão Paroquial do Santuário Divino Espírito Santo",
       descricao: "Nosso primeiro encontro, aberto a toda a comunidade.",
       pagina: "/noite-mariana",

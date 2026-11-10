@@ -3,6 +3,7 @@ import conteudo from '../conteudo.js'
 import Azulejo, { BarraAzulejo } from '../components/Azulejo.jsx'
 import { Titulo } from '../components/Blocos.jsx'
 import { ContagemFrase } from '../components/Contagem.jsx'
+import AdicionarAgenda from '../components/AdicionarAgenda.jsx'
 import { arquivo, eventoJaPassou, formatarHora, linkInscricaoEvento, linkMapa } from '../utils.js'
 
 // "Sexta-feira, 11 de dezembro"
@@ -63,6 +64,7 @@ export default function NoiteMariana() {
                   Fazer minha inscrição
                 </a>
               )}
+              {!passou && <AdicionarAgenda evento={ev} />}
               <a href={linkMapa(ev.local, ev.cidade)} target="_blank" rel="noreferrer" className="link-seta">
                 Ver como chegar
               </a>

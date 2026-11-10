@@ -528,3 +528,21 @@ svg { flex-shrink: 0; }
 .nm-local { display: grid; gap: 28px; align-items: start; }
 @media (min-width: 860px) { .nm-local { grid-template-columns: 0.8fr 1.2fr; } }
 .nm-endereco { font-size: 1.125rem; margin-bottom: 20px; }
+
+/* Botão "Adicionar à agenda" (página do evento) */
+.agenda { position: relative; }
+.agenda > summary { list-style: none; cursor: pointer; }
+.agenda > summary::-webkit-details-marker { display: none; }
+.agenda[open] > summary { background: var(--cobalto-suave); }
+.agenda-opcoes {
+  position: absolute; z-index: 5; top: calc(100% + 8px); left: 0; min-width: 260px;
+  display: grid; padding: 6px; background: var(--branco);
+  border: 1px solid var(--cobalto-suave); border-radius: var(--raio); box-shadow: var(--sombra);
+}
+.agenda-opcoes a, .agenda-opcoes button {
+  display: grid; gap: 2px; padding: 12px 14px; text-align: left;
+  font: inherit; font-weight: 600; color: var(--tinta); text-decoration: none;
+  background: none; border: 0; border-radius: 4px; cursor: pointer;
+}
+.agenda-opcoes a:hover, .agenda-opcoes button:hover { background: var(--offwhite); color: var(--cobalto); }
+.agenda-opcoes small { font-size: 0.8125rem; font-weight: 400; color: var(--tinta-suave); }
